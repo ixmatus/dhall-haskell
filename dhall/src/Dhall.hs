@@ -1133,7 +1133,7 @@ instance (ToDhall a, FromDhall b) => FromDhall (a -> b) where
         -- ToDo
         extractOut e = pure (\i -> case extractIn (Dhall.Core.normalizeWith normalizer_ (App e (embed i))) of
             Success o  -> o
-            Failure _e -> error "FromDhall: You cannot decode a function if it does not have the correct type" )
+            Failure e -> error $ "FromDhall: You cannot decode a function if it does not have the correct type: "<>show e )
 
         expectedOut = Pi "_" declared expectedIn
 
